@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>NBA Playoff Predictions</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>index</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14593,7 +14593,23 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h1>
+<p><strong>Table of contents</strong><a id='toc0_'></a></p>
+<ol>
+<li><a href="#toc1_">Introduction</a>    </li>
+<li><a href="#toc2_">Data Collection</a>    </li>
+<li><a href="#toc3_">Data Processing</a>    </li>
+<li><a href="#toc4_">Exploratory Data Analysis &amp; Visualization</a>    </li>
+<li><a href="#toc5_">Modeling: Analysis, Hypothesis Testing, &amp; Machine Learning</a>    </li>
+<li><a href="#toc6_">Interpretation: Insight &amp; Policy Decision</a>    </li>
+</ol>
+<!-- vscode-jupyter-toc-config
+    numbering=true
+    anchor=true
+    flat=true
+    minLevel=1
+    maxLevel=6
+    /vscode-jupyter-toc-config -->
+<!-- THIS CELL WILL BE REPLACED ON TOC UPDATE. DO NOT WRITE YOUR TEXT IN THIS CELL -->
 </div>
 </div>
 </div>
@@ -14604,7 +14620,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Data-Collection">Data Collection<a class="anchor-link" href="#Data-Collection">&#182;</a></h1>
+<h1 id="1.-Introduction">1. <a id="toc1_" /><a href="#toc0_">Introduction</a><a class="anchor-link" href="#1.-Introduction">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -14615,7 +14631,28 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Data-Processing">Data Processing<a class="anchor-link" href="#Data-Processing">&#182;</a></h1>
+<p>The <a href="https://www.nba.com/">National Basketball Association (NBA)</a> is a professional basketball league in the United States. There are <a href="https://www.nba.com/teams">$30$ teams</a> in the league, divided evenly into $2$ conferences: the Eastern Conference and the Western Conference.</p>
+<p>In the regular season, each team plays $82$ games. <a href="https://www.nba.com/standings">NBA regular season standings</a> are determined by teams' win-loss records within their conferences.</p>
+<p>The top $8$ teams from each conference advance to the playoffs. In the event of a tie in the standings, there is a <a href="https://ak-static-int.nba.com/wp-content/uploads/sites/2/2017/06/NBA_Tiebreaker_Procedures.pdf">tie-breaking procedure</a> used to determine playoff seeding.</p>
+<p>Starting in the $2019\text{-}20$ season, the NBA <a href="https://bleacherreport.com/articles/10031906-adam-silver-envisions-nba-play-in-tournament-becoming-a-fixture-in-this-league">added a play-in tournament</a> to give the $9^\text{th}$ and $10^\text{th}$ place teams in each conference the opportunity to earn a spot in the playoffs. It works as follows:</p>
+<ul>
+<li>The $7^\text{th}$ and $8^\text{th}$ place teams play a game to determine the $7^\text{th}$ seed. The winner advances to the playoffs.</li>
+<li>The $9^\text{th}$ and $10^\text{th}$ place teams play an elimination game. The loser is eliminated.</li>
+<li>The loser of the $7/8$ game and the winner of the $9/10$ game play an elimination game to determine the $8^\text{th}$ seed. The winner advances to the playoffs; the loser is eliminated.</li>
+</ul>
+<p>Once the final playoff seeding is determined, each team plays an opponent in a best-of-$7$ series. The first to win $4$ games advances to the next round. The first round is followed by the conference semifinals, then the conference finals, then the finals. The team that wins the NBA Finals in the NBA Champion.</p>
+<p>The matchups for each round are determined using a traditional bracket structure, shown below:</p>
+<p><img src="nba-playoff-bracket.png" alt="NBA Playoff Bracket" title="NBA Playoff Bracket"></p>
+<p>We want to perform some analysis to see if we can identify factors underlying teams' level of success in the playoffs. Our ultimate goal will be to predict the outcome of the NBA playoffs using data from the regular season.</p>
+<p>Can we predict how likely a team is to:</p>
+<ul>
+<li>Win the championship?</li>
+<li>Make the finals?</li>
+<li>Make the conference finals?</li>
+<li>Make the conference semifinals?</li>
+</ul>
+<p>These are some of the questions we want to answer as we go through the full data science pipeline.</p>
+
 </div>
 </div>
 </div>
@@ -14626,7 +14663,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Exploratory-Data-Analysis-&amp;-Visualization">Exploratory Data Analysis &amp; Visualization<a class="anchor-link" href="#Exploratory-Data-Analysis-&amp;-Visualization">&#182;</a></h1>
+<h1 id="2.-Data-Collection">2. <a id="toc2_" /><a href="#toc0_">Data Collection</a><a class="anchor-link" href="#2.-Data-Collection">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -14637,7 +14674,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Modeling:-Analysis,-Hypothesis-Testing,-&amp;-Machine-Learning">Modeling: Analysis, Hypothesis Testing, &amp; Machine Learning<a class="anchor-link" href="#Modeling:-Analysis,-Hypothesis-Testing,-&amp;-Machine-Learning">&#182;</a></h1>
+<h1 id="3.-Data-Processing">3. <a id="toc3_" /><a href="#toc0_">Data Processing</a><a class="anchor-link" href="#3.-Data-Processing">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -14648,7 +14685,29 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Interpretation:-Insight-&amp;-Policy-Decision">Interpretation: Insight &amp; Policy Decision<a class="anchor-link" href="#Interpretation:-Insight-&amp;-Policy-Decision">&#182;</a></h1>
+<h1 id="4.-Exploratory-Data-Analysis-&amp;-Visualization">4. <a id="toc4_" /><a href="#toc0_">Exploratory Data Analysis &amp; Visualization</a><a class="anchor-link" href="#4.-Exploratory-Data-Analysis-&amp;-Visualization">&#182;</a></h1>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="5.-Modeling:-Analysis,-Hypothesis-Testing,-&amp;-Machine-Learning">5. <a id="toc5_" /><a href="#toc0_">Modeling: Analysis, Hypothesis Testing, &amp; Machine Learning</a><a class="anchor-link" href="#5.-Modeling:-Analysis,-Hypothesis-Testing,-&amp;-Machine-Learning">&#182;</a></h1>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="6.-Interpretation:-Insight-&amp;-Policy-Decision">6. <a id="toc6_" /><a href="#toc0_">Interpretation: Insight &amp; Policy Decision</a><a class="anchor-link" href="#6.-Interpretation:-Insight-&amp;-Policy-Decision">&#182;</a></h1>
 </div>
 </div>
 </div>
