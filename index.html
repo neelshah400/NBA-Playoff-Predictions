@@ -14860,8 +14860,8 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </ul>
 <p>In our approach, there are a few issues that we have to address as well:</p>
 <ul>
-<li>To save time, if the <code>CSV</code> files for a page already exists, we will not re-scrape the page.</li>
-<li>It appears that some of the <code>table</code> elements are hidden inside of <code>HTML</code> comments, so, we have to look there if it can't be found the first time.</li>
+<li>To save time, if the <code>CSV</code> files for a page already exist, we will not re-scrape the page.</li>
+<li>It appears that some of the <code>table</code> elements are hidden inside of <code>HTML</code> comments, so we have to look there if a <code>table</code> can't be found normally.</li>
 <li>To avoid hitting rate limits (from making too many requests in a given time period), we have to add a $10$ second <code>sleep</code> between each <code>HTTP</code> <code>GET</code> request using the <a href="https://docs.python.org/3/library/time.html"><code>time</code></a> library.</li>
 </ul>
 
