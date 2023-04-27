@@ -14595,7 +14595,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Table of contents</strong><a id='toc0_'></a></p>
 <ol>
-<li><a href="#toc1_">Introduction</a>    </li>
+<li><a href="#toc1_">Introduction</a><br>
+1.1. <a href="#toc1_1_">Background Information</a><br>
+1.2. <a href="#toc1_2_">Objective</a><br>
+1.3. <a href="#toc1_3_">Configuration</a>    </li>
 <li><a href="#toc2_">Data Collection</a>    </li>
 <li><a href="#toc3_">Data Processing</a>    </li>
 <li><a href="#toc4_">Exploratory Data Analysis &amp; Visualization</a>    </li>
@@ -14631,6 +14634,17 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="1.1.-Background-Information">1.1. <a id="toc1_1_" /><a href="#toc0_">Background Information</a><a class="anchor-link" href="#1.1.-Background-Information">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>The <a href="https://www.nba.com/">National Basketball Association (NBA)</a> is a professional basketball league in the United States. There are <a href="https://www.nba.com/teams">$30$ teams</a> in the league, divided evenly into $2$ conferences: the Eastern Conference and the Western Conference.</p>
 <p>In the regular season, each team plays $82$ games. <a href="https://www.nba.com/standings">NBA regular season standings</a> are determined by teams' win-loss records within their conferences.</p>
 <p>The top $8$ teams from each conference advance to the playoffs. In the event of a tie in the standings, there is a <a href="https://ak-static-int.nba.com/wp-content/uploads/sites/2/2017/06/NBA_Tiebreaker_Procedures.pdf">tie-breaking procedure</a> used to determine playoff seeding.</p>
@@ -14643,6 +14657,28 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <p>Once the final playoff seeding is determined, each team plays an opponent in a best-of-$7$ series. The first to win $4$ games advances to the next round. The first round is followed by the conference semifinals, then the conference finals, then the finals. The team that wins the NBA Finals in the NBA Champion.</p>
 <p>The matchups for each round are determined using a traditional bracket structure, shown below:</p>
 <p><img src="nba-playoff-bracket.png" alt="NBA Playoff Bracket" title="NBA Playoff Bracket"></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="1.2.-Objective">1.2. <a id="toc1_2_" /><a href="#toc0_">Objective</a><a class="anchor-link" href="#1.2.-Objective">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>We want to perform some analysis to see if we can identify factors underlying teams' level of success in the playoffs. Our ultimate goal will be to predict the outcome of the NBA playoffs using data from the regular season.</p>
 <p>Can we predict how likely a team is to:</p>
 <ul>
@@ -14656,6 +14692,45 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 </div>
 </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="1.3.-Configuration">1.3. <a id="toc1_3_" /><a href="#toc0_">Configuration</a><a class="anchor-link" href="#1.3.-Configuration">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Let's start by importing the <code>Python</code> libraries necessary for this project and configuring some things.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: add import statements</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
