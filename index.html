@@ -14598,12 +14598,14 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <li><a href="#toc1_">Introduction</a><br>
 1.1. <a href="#toc1_1_">Background Information</a><br>
 1.2. <a href="#toc1_2_">Objective</a><br>
-1.3. <a href="#toc1_3_">Configuration</a>    </li>
-<li><a href="#toc2_">Data Collection</a>    </li>
-<li><a href="#toc3_">Data Processing</a>    </li>
-<li><a href="#toc4_">Exploratory Data Analysis &amp; Visualization</a>    </li>
-<li><a href="#toc5_">Modeling: Analysis, Hypothesis Testing, &amp; Machine Learning</a>    </li>
-<li><a href="#toc6_">Interpretation: Insight &amp; Policy Decision</a>    </li>
+1.3. <a href="#toc1_3_">Configuration</a></li>
+<li><a href="#toc2_">Data Collection</a><br>
+2.1. <a href="#toc2_1_">Setup</a><br>
+2.2. <a href="#toc2_2_">Data Scraping</a></li>
+<li><a href="#toc3_">Data Processing</a></li>
+<li><a href="#toc4_">Exploratory Data Analysis &amp; Visualization</a></li>
+<li><a href="#toc5_">Modeling: Analysis, Hypothesis Testing, &amp; Machine Learning</a></li>
+<li><a href="#toc6_">Interpretation: Insight &amp; Policy Decision</a></li>
 </ol>
 <!-- vscode-jupyter-toc-config
     numbering=true
@@ -14682,10 +14684,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <p>We want to perform some analysis to see if we can identify factors underlying teams' level of success in the playoffs. Our ultimate goal will be to predict the outcome of the NBA playoffs using data from the regular season.</p>
 <p>Can we predict how likely a team is to:</p>
 <ul>
-<li>Win the championship?</li>
-<li>Make the finals?</li>
-<li>Make the conference finals?</li>
-<li>Make the conference semifinals?</li>
+<li>Make the conference semifinals (i.e. win at least $4$ playoff games)?</li>
+<li>Make the conference finals (i.e. win at least $8$ playoff games)?</li>
+<li>Make the finals (i.e. win at least $12$ playoff games)?</li>
+<li>Win the championship (i.e. win $16$ playoff games)?</li>
 </ul>
 <p>These are some of the questions we want to answer as we go through the full data science pipeline.</p>
 
@@ -14710,7 +14712,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Let's start by importing the <code>Python</code> libraries necessary for this project and configuring some things.</p>
+<p>We'll start by importing the <a href="https://www.python.org/"><code>Python</code></a> libraries necessary for this project and configuring some things.</p>
 
 </div>
 </div>
@@ -14723,7 +14725,18 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: add import statements</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span><span class="p">,</span> <span class="n">Comment</span><span class="p">,</span> <span class="n">MarkupResemblesLocatorWarning</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">MarkupResemblesLocatorWarning</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s2">&quot;bs4&quot;</span><span class="p">)</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36&quot;</span>
+<span class="p">}</span>
 </pre></div>
 
      </div>
@@ -14742,6 +14755,166 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 </div>
 </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="2.1.-Setup">2.1. <a id="toc2_1_" /><a href="#toc0_">Setup</a><a class="anchor-link" href="#2.1.-Setup">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now, we need to collect data that we can use in our analysis. For this, we will scrape data from <a href="https://www.basketball-reference.com/">Basketball Reference</a>, a site that provides historical basketball data.</p>
+<p>We will use data from the $2002\text{-}03$ season (<a href="https://www.nba.com/magic/history-no-1-vs-no-8-nba-playoffs-20200810">when the NBA switched to the current playoff format, where every series is best-of-$7$</a>) to the $2022\text{-}23$ season (the current season). For each season, we will scrape the following information:</p>
+<ul>
+<li>Per Game Stats from Season Summary page</li>
+<li>Advanced Stats from Season Summary page</li>
+<li>Expanded Standings from Standings page</li>
+<li>Advanced Stats from Playoffs Summary page</li>
+</ul>
+<p>For convenience, we will define a function called <code>pages_to_scrape</code>. Given a season, it will return a dictionary which maps the URL of the page we will be scraping to the list of information about each table we will be scraping from that page.</p>
+<p>Each element in the list will be in the form of a dictionary with $2$ items:</p>
+<ul>
+<li>The <code>id</code> of the <code>HTML</code> <code>table</code> element we will be scraping from the page</li>
+<li>The <code>path</code> where we will be storing the table as a <code>CSV</code></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">pages_to_scrape</span><span class="p">(</span><span class="n">season</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="sa">f</span><span class="s2">&quot;https://www.basketball-reference.com/leagues/NBA_</span><span class="si">{</span><span class="n">season</span><span class="si">}</span><span class="s2">.html&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;per_game-team&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;data/raw/</span><span class="si">{</span><span class="n">season</span><span class="si">}</span><span class="s2">/regular_season/per_game_stats.csv&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;advanced-team&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;data/raw/</span><span class="si">{</span><span class="n">season</span><span class="si">}</span><span class="s2">/regular_season/advanced_stats.csv&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">],</span>
+        <span class="sa">f</span><span class="s2">&quot;https://www.basketball-reference.com/leagues/NBA_</span><span class="si">{</span><span class="n">season</span><span class="si">}</span><span class="s2">_standings.html&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;expanded_standings&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;data/raw/</span><span class="si">{</span><span class="n">season</span><span class="si">}</span><span class="s2">/regular_season/standings.csv&quot;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="sa">f</span><span class="s2">&quot;https://www.basketball-reference.com/playoffs/NBA_</span><span class="si">{</span><span class="n">season</span><span class="si">}</span><span class="s2">.html&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;advanced-team&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;data/raw/</span><span class="si">{</span><span class="n">season</span><span class="si">}</span><span class="s2">/playoffs/advanced_stats.csv&quot;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+    <span class="p">}</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="2.2.-Data-Scraping">2.2. <a id="toc2_2_" /><a href="#toc0_">Data Scraping</a><a class="anchor-link" href="#2.2.-Data-Scraping">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>To scrape the data from each page, we will do the following:</p>
+<ul>
+<li>Perform an <code>HTTP</code> <code>GET</code> request to the appropriate URL using the <a href="https://requests.readthedocs.io/en/latest/"><code>Requests</code></a> library.</li>
+<li>Parse the webpage using <a href="https://beautiful-soup-4.readthedocs.io/en/latest/"><code>Beautiful Soup</code></a>.</li>
+<li>Find the <code>HTML</code> <code>table</code> with the appropriate <code>id</code>.</li>
+<li>Read the parsed <code>HTML</code> <code>table</code> into a <code>DataFrame</code> using <a href="https://pandas.pydata.org/"><code>pandas</code></a>.</li>
+<li>Ensure that the appropriate <code>path</code> exists in the filesystem using <a href="https://docs.python.org/3/library/pathlib.html"><code>pathlib</code></a>.</li>
+<li>Write the <code>DataFrame</code> to a <code>CSV</code> file at the appropriate <code>path</code> using <a href="https://pandas.pydata.org/"><code>pandas</code></a>.</li>
+</ul>
+<p>In our approach, there are a few issues that we have to address as well:</p>
+<ul>
+<li>To save time, if the <code>CSV</code> files for a page already exists, we will not re-scrape the page.</li>
+<li>It appears that some of the <code>table</code> elements are hidden inside of <code>HTML</code> comments, so, we have to look there if it can't be found the first time.</li>
+<li>To avoid hitting rate limits (from making too many requests in a given time period), we have to add a $10$ second <code>sleep</code> between each <code>HTTP</code> <code>GET</code> request using the <a href="https://docs.python.org/3/library/time.html"><code>time</code></a> library.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">season</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2003</span><span class="p">,</span> <span class="mi">2023</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+
+    <span class="n">pages</span> <span class="o">=</span> <span class="n">pages_to_scrape</span><span class="p">(</span><span class="n">season</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">url</span><span class="p">,</span> <span class="n">infoList</span> <span class="ow">in</span> <span class="n">pages</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+        <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="n">Path</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">infoList</span><span class="p">]):</span>
+            <span class="k">continue</span>
+
+        <span class="n">page</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+        <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">infoList</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="k">continue</span>
+
+            <span class="n">table</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">table</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">comment</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span>
+                    <span class="n">string</span><span class="o">=</span><span class="k">lambda</span> <span class="n">text</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">Comment</span><span class="p">)</span>
+                <span class="p">):</span>
+                    <span class="n">comment_soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">comment</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
+                    <span class="n">table</span> <span class="o">=</span> <span class="n">comment_soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="n">table</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">break</span>
+
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">Path</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
