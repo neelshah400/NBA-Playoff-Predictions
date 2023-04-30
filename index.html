@@ -14598,19 +14598,26 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <li><a href="#toc1_">Introduction</a><br>
 1.1. <a href="#toc1_1_">Background Information</a><br>
 1.2. <a href="#toc1_2_">Objective</a><br>
-1.3. <a href="#toc1_3_">Configuration</a></li>
+1.3. <a href="#toc1_3_">Configuration</a>    </li>
 <li><a href="#toc2_">Data Collection</a><br>
 2.1. <a href="#toc2_1_">Data Sources</a><br>
-2.2. <a href="#toc2_2_">Scraping Data</a></li>
+2.2. <a href="#toc2_2_">Scraping Data</a>    </li>
 <li><a href="#toc3_">Data Processing</a><br>
 3.1. <a href="#toc3_1_">Cleaning Data</a><br>
 3.1.1. <a href="#toc3_1_1_">Renaming a Single Column</a><br>
 3.1.2. <a href="#toc3_1_2_">Renaming All Columns</a><br>
 3.1.3. <a href="#toc3_1_3_">Cleaning a <code>CSV</code> File</a><br>
-3.2. <a href="#toc3_2_">Merging Data</a></li>
-<li><a href="#toc4_">Exploratory Data Analysis &amp; Visualization</a></li>
-<li><a href="#toc5_">Modeling: Analysis, Hypothesis Testing, &amp; Machine Learning</a></li>
-<li><a href="#toc6_">Interpretation: Insight &amp; Policy Decision</a></li>
+3.2. <a href="#toc3_2_">Merging Data</a><br>
+3.3. <a href="#toc3_3_">Filtering Rows</a><br>
+3.4. <a href="#toc3_4_">Setting Data Types</a><br>
+3.5. <a href="#toc3_5_">Adding New Columns</a><br>
+3.5.1. <a href="#toc3_5_1_">Determining Conferences</a><br>
+3.5.2. <a href="#toc3_5_2_">Determining Playoff Seeding</a><br>
+3.5.3. <a href="#toc3_5_3_">Converting Team Records to Winning Percentages</a><br>
+3.6. <a href="#toc3_6_">Looking at Tidy Data</a>    </li>
+<li><a href="#toc4_">Exploratory Data Analysis &amp; Visualization</a>    </li>
+<li><a href="#toc5_">Modeling: Analysis, Hypothesis Testing, &amp; Machine Learning</a>    </li>
+<li><a href="#toc6_">Interpretation: Insight &amp; Policy Decision</a>    </li>
 </ol>
 <!-- vscode-jupyter-toc-config
     numbering=true
@@ -14700,7 +14707,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>We want to perform some analysis to see if we can identify factors underlying teams' level of success in the playoffs. Our ultimate goal will be to predict the outcome of the NBA playoffs using data from the regular season.</p>
 <p>Can we accurately predict how many playoff games a team will win?</p>
-<p>With this informalikely, we could determine if a team is likely to:</p>
+<p>With this information, we could determine if a team is likely to:</p>
 <ul>
 <li>Make the conference semifinals (i.e. win at least $4$ playoff games)</li>
 <li>Make the conference finals (i.e. win at least $8$ playoff games)</li>
@@ -15147,7 +15154,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
         <span class="s2">&quot;columns&quot;</span><span class="p">:</span> <span class="p">[</span>
             <span class="s2">&quot;Team&quot;</span><span class="p">,</span>
             <span class="s2">&quot;G&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;MP&quot;</span><span class="p">,</span>
             <span class="s2">&quot;FG&quot;</span><span class="p">,</span>
             <span class="s2">&quot;FGA&quot;</span><span class="p">,</span>
             <span class="s2">&quot;FG%&quot;</span><span class="p">,</span>
@@ -15204,11 +15210,21 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     <span class="p">},</span>
     <span class="s2">&quot;regular_season/standings.csv&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;header&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="s2">&quot;columns&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Rank&quot;</span><span class="p">,</span> <span class="s2">&quot;Team&quot;</span><span class="p">,</span> <span class="s2">&quot;Overall&quot;</span><span class="p">,</span> <span class="s2">&quot;PlaceHome&quot;</span><span class="p">,</span> <span class="s2">&quot;PlaceRoad&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;columns&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;Rank&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Team&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Overall&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;PlaceHome&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;PlaceRoad&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ConferenceE&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ConferenceW&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
         <span class="s2">&quot;column_mappings&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;Overall&quot;</span><span class="p">:</span> <span class="s2">&quot;OverallRecord&quot;</span><span class="p">,</span>
             <span class="s2">&quot;PlaceHome&quot;</span><span class="p">:</span> <span class="s2">&quot;HomeRecord&quot;</span><span class="p">,</span>
             <span class="s2">&quot;PlaceRoad&quot;</span><span class="p">:</span> <span class="s2">&quot;RoadRecord&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ConferenceE&quot;</span><span class="p">:</span> <span class="s2">&quot;EastRecord&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ConferenceW&quot;</span><span class="p">:</span> <span class="s2">&quot;WestRecord&quot;</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">},</span>
     <span class="s2">&quot;playoffs/advanced_stats.csv&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -15386,66 +15402,67 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 Int64Index: 628 entries, 0 to 29
-Data columns (total 55 columns):
+Data columns (total 56 columns):
  #   Column         Non-Null Count  Dtype  
 ---  ------         --------------  -----  
  0   Season         628 non-null    int64  
  1   Team           628 non-null    object 
  2   G              628 non-null    int64  
- 3   MP             628 non-null    float64
- 4   FG             628 non-null    float64
- 5   FGA            628 non-null    float64
- 6   FG%            628 non-null    float64
- 7   3P             628 non-null    float64
- 8   3PA            628 non-null    float64
- 9   3P%            628 non-null    float64
- 10  2P             628 non-null    float64
- 11  2PA            628 non-null    float64
- 12  2P%            628 non-null    float64
- 13  FT             628 non-null    float64
- 14  FTA            628 non-null    float64
- 15  FT%            628 non-null    float64
- 16  ORB            628 non-null    float64
- 17  DRB            628 non-null    float64
- 18  TRB            628 non-null    float64
- 19  AST            628 non-null    float64
- 20  STL            628 non-null    float64
- 21  BLK            628 non-null    float64
- 22  TOV            628 non-null    float64
- 23  PF             628 non-null    float64
- 24  PTS            628 non-null    float64
- 25  Age            628 non-null    float64
- 26  W              628 non-null    float64
- 27  L              628 non-null    float64
- 28  PW             628 non-null    int64  
- 29  PL             628 non-null    int64  
- 30  MOV            628 non-null    float64
- 31  SOS            628 non-null    float64
- 32  SRS            628 non-null    float64
- 33  ORtg           628 non-null    float64
- 34  DRtg           628 non-null    float64
- 35  NRtg           628 non-null    float64
- 36  Pace           628 non-null    float64
- 37  FTr            628 non-null    float64
- 38  3PAr           628 non-null    float64
- 39  TS%            628 non-null    float64
- 40  eFG%           628 non-null    float64
- 41  TOV%           628 non-null    float64
- 42  ORB%           628 non-null    float64
- 43  FT/FGA         628 non-null    float64
- 44  OppeFG%        628 non-null    float64
- 45  OppTOV%        628 non-null    float64
- 46  DRB%           628 non-null    float64
- 47  OppFT/FGA      628 non-null    float64
- 48  Rank           628 non-null    int64  
- 49  OverallRecord  628 non-null    object 
- 50  HomeRecord     628 non-null    object 
- 51  RoadRecord     628 non-null    object 
- 52  PlayoffRank    340 non-null    float64
- 53  PlayoffW       340 non-null    float64
- 54  PlayoffL       340 non-null    float64
-dtypes: float64(46), int64(5), object(4)
-memory usage: 274.8+ KB
+ 3   FG             628 non-null    float64
+ 4   FGA            628 non-null    float64
+ 5   FG%            628 non-null    float64
+ 6   3P             628 non-null    float64
+ 7   3PA            628 non-null    float64
+ 8   3P%            628 non-null    float64
+ 9   2P             628 non-null    float64
+ 10  2PA            628 non-null    float64
+ 11  2P%            628 non-null    float64
+ 12  FT             628 non-null    float64
+ 13  FTA            628 non-null    float64
+ 14  FT%            628 non-null    float64
+ 15  ORB            628 non-null    float64
+ 16  DRB            628 non-null    float64
+ 17  TRB            628 non-null    float64
+ 18  AST            628 non-null    float64
+ 19  STL            628 non-null    float64
+ 20  BLK            628 non-null    float64
+ 21  TOV            628 non-null    float64
+ 22  PF             628 non-null    float64
+ 23  PTS            628 non-null    float64
+ 24  Age            628 non-null    float64
+ 25  W              628 non-null    float64
+ 26  L              628 non-null    float64
+ 27  PW             628 non-null    int64  
+ 28  PL             628 non-null    int64  
+ 29  MOV            628 non-null    float64
+ 30  SOS            628 non-null    float64
+ 31  SRS            628 non-null    float64
+ 32  ORtg           628 non-null    float64
+ 33  DRtg           628 non-null    float64
+ 34  NRtg           628 non-null    float64
+ 35  Pace           628 non-null    float64
+ 36  FTr            628 non-null    float64
+ 37  3PAr           628 non-null    float64
+ 38  TS%            628 non-null    float64
+ 39  eFG%           628 non-null    float64
+ 40  TOV%           628 non-null    float64
+ 41  ORB%           628 non-null    float64
+ 42  FT/FGA         628 non-null    float64
+ 43  OppeFG%        628 non-null    float64
+ 44  OppTOV%        628 non-null    float64
+ 45  DRB%           628 non-null    float64
+ 46  OppFT/FGA      628 non-null    float64
+ 47  Rank           628 non-null    int64  
+ 48  OverallRecord  628 non-null    object 
+ 49  HomeRecord     628 non-null    object 
+ 50  RoadRecord     628 non-null    object 
+ 51  EastRecord     628 non-null    object 
+ 52  WestRecord     628 non-null    object 
+ 53  PlayoffRank    340 non-null    float64
+ 54  PlayoffW       340 non-null    float64
+ 55  PlayoffL       340 non-null    float64
+dtypes: float64(45), int64(5), object(6)
+memory usage: 279.7+ KB
 </pre>
 </div>
 </div>
@@ -15506,7 +15523,6 @@ memory usage: 274.8+ KB
       <th>Season</th>
       <th>Team</th>
       <th>G</th>
-      <th>MP</th>
       <th>FG</th>
       <th>FGA</th>
       <th>FG%</th>
@@ -15555,6 +15571,8 @@ memory usage: 274.8+ KB
       <th>OverallRecord</th>
       <th>HomeRecord</th>
       <th>RoadRecord</th>
+      <th>EastRecord</th>
+      <th>WestRecord</th>
       <th>PlayoffRank</th>
       <th>PlayoffW</th>
       <th>PlayoffL</th>
@@ -15566,7 +15584,6 @@ memory usage: 274.8+ KB
       <td>2003</td>
       <td>Dallas Mavericks</td>
       <td>82</td>
-      <td>241.2</td>
       <td>38.5</td>
       <td>85.1</td>
       <td>0.453</td>
@@ -15615,6 +15632,8 @@ memory usage: 274.8+ KB
       <td>60-22</td>
       <td>33-8</td>
       <td>27-14</td>
+      <td>26-4</td>
+      <td>34-18</td>
       <td>8.0</td>
       <td>10.0</td>
       <td>10.0</td>
@@ -15624,7 +15643,6 @@ memory usage: 274.8+ KB
       <td>2003</td>
       <td>Golden State Warriors</td>
       <td>82</td>
-      <td>240.9</td>
       <td>37.3</td>
       <td>84.6</td>
       <td>0.441</td>
@@ -15673,6 +15691,8 @@ memory usage: 274.8+ KB
       <td>38-44</td>
       <td>24-17</td>
       <td>14-27</td>
+      <td>19-11</td>
+      <td>19-33</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -15682,7 +15702,6 @@ memory usage: 274.8+ KB
       <td>2003</td>
       <td>Sacramento Kings</td>
       <td>82</td>
-      <td>241.8</td>
       <td>39.5</td>
       <td>85.2</td>
       <td>0.464</td>
@@ -15731,6 +15750,8 @@ memory usage: 274.8+ KB
       <td>59-23</td>
       <td>35-6</td>
       <td>24-17</td>
+      <td>23-7</td>
+      <td>36-16</td>
       <td>3.0</td>
       <td>7.0</td>
       <td>5.0</td>
@@ -15740,7 +15761,6 @@ memory usage: 274.8+ KB
       <td>2003</td>
       <td>Los Angeles Lakers</td>
       <td>82</td>
-      <td>243.0</td>
       <td>37.7</td>
       <td>83.6</td>
       <td>0.451</td>
@@ -15789,6 +15809,8 @@ memory usage: 274.8+ KB
       <td>50-32</td>
       <td>31-10</td>
       <td>19-22</td>
+      <td>17-13</td>
+      <td>33-19</td>
       <td>7.0</td>
       <td>6.0</td>
       <td>6.0</td>
@@ -15798,7 +15820,6 @@ memory usage: 274.8+ KB
       <td>2003</td>
       <td>Milwaukee Bucks</td>
       <td>82</td>
-      <td>242.7</td>
       <td>37.1</td>
       <td>81.3</td>
       <td>0.457</td>
@@ -15847,6 +15868,8 @@ memory usage: 274.8+ KB
       <td>42-40</td>
       <td>25-16</td>
       <td>17-24</td>
+      <td>32-22</td>
+      <td>10-18</td>
       <td>11.0</td>
       <td>2.0</td>
       <td>4.0</td>
@@ -15908,13 +15931,13 @@ memory usage: 274.8+ KB
       <td>...</td>
       <td>...</td>
       <td>...</td>
+      <td>...</td>
     </tr>
     <tr>
       <th>25</th>
       <td>2023</td>
       <td>Orlando Magic</td>
       <td>82</td>
-      <td>241.2</td>
       <td>40.5</td>
       <td>86.3</td>
       <td>0.470</td>
@@ -15963,6 +15986,8 @@ memory usage: 274.8+ KB
       <td>34-48</td>
       <td>20-21</td>
       <td>14-27</td>
+      <td>20-32</td>
+      <td>14-16</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -15972,7 +15997,6 @@ memory usage: 274.8+ KB
       <td>2023</td>
       <td>Charlotte Bobcats</td>
       <td>82</td>
-      <td>241.8</td>
       <td>41.3</td>
       <td>90.4</td>
       <td>0.457</td>
@@ -16021,6 +16045,8 @@ memory usage: 274.8+ KB
       <td>27-55</td>
       <td>13-28</td>
       <td>14-27</td>
+      <td>15-37</td>
+      <td>12-18</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -16030,7 +16056,6 @@ memory usage: 274.8+ KB
       <td>2023</td>
       <td>Houston Rockets</td>
       <td>82</td>
-      <td>240.9</td>
       <td>40.6</td>
       <td>88.9</td>
       <td>0.457</td>
@@ -16079,6 +16104,8 @@ memory usage: 274.8+ KB
       <td>22-60</td>
       <td>14-27</td>
       <td>8-33</td>
+      <td>10-20</td>
+      <td>12-40</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -16088,7 +16115,6 @@ memory usage: 274.8+ KB
       <td>2023</td>
       <td>Detroit Pistons</td>
       <td>82</td>
-      <td>241.5</td>
       <td>39.6</td>
       <td>87.1</td>
       <td>0.454</td>
@@ -16137,6 +16163,8 @@ memory usage: 274.8+ KB
       <td>17-65</td>
       <td>9-32</td>
       <td>8-33</td>
+      <td>8-44</td>
+      <td>9-21</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -16146,7 +16174,6 @@ memory usage: 274.8+ KB
       <td>2023</td>
       <td>Miami Heat</td>
       <td>82</td>
-      <td>241.5</td>
       <td>39.2</td>
       <td>85.3</td>
       <td>0.460</td>
@@ -16195,13 +16222,1105 @@ memory usage: 274.8+ KB
       <td>44-38</td>
       <td>27-14</td>
       <td>17-24</td>
+      <td>24-28</td>
+      <td>20-10</td>
       <td>4.0</td>
       <td>3.0</td>
       <td>1.0</td>
     </tr>
   </tbody>
 </table>
-<p>628 rows × 55 columns</p>
+<p>628 rows × 56 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="3.3.-Filtering-Rows">3.3. <a id="toc3_3_" /><a href="#toc0_">Filtering Rows</a><a class="anchor-link" href="#3.3.-Filtering-Rows">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>We want to analyze teams' level of success in the playoffs, so it only makes sense to consider teams that made the playoffs in our analysis.</p>
+<p>Thus, we will drop rows where the <code>PlayoffRank</code>, <code>PlayoffW</code>, or <code>PlayoffL</code> columns are <code>NaN</code>.</p>
+<p>We will also drop rows where the sum of <code>PlayoffW</code> and <code>PlayoffL</code> is $0$ (which would indicate that a team made it to the play-in tournament, but did not advance to the playoffs).</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;PlayoffRank&quot;</span><span class="p">,</span> <span class="s2">&quot;PlayoffW&quot;</span><span class="p">,</span> <span class="s2">&quot;PlayoffL&quot;</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;PlayoffW&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;PlayoffL&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="3.4.-Setting-Data-Types">3.4. <a id="toc3_4_" /><a href="#toc0_">Setting Data Types</a><a class="anchor-link" href="#3.4.-Setting-Data-Types">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>As we can see, most of the columns in the <code>DataFrame</code> have the correct <code>dtype</code>s, but there are a few we need to correct. Specifically, <code>PlayoffRank</code>, <code>PlayoffW</code>, and <code>PlayoffL</code> need to be changed from <code>float64</code> to <code>int64</code>.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">({</span><span class="s2">&quot;PlayoffRank&quot;</span><span class="p">:</span> <span class="s2">&quot;int64&quot;</span><span class="p">,</span> <span class="s2">&quot;PlayoffW&quot;</span><span class="p">:</span> <span class="s2">&quot;int64&quot;</span><span class="p">,</span> <span class="s2">&quot;PlayoffL&quot;</span><span class="p">:</span> <span class="s2">&quot;int64&quot;</span><span class="p">})</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="3.5.-Adding-New-Columns">3.5. <a id="toc3_5_" /><a href="#toc0_">Adding New Columns</a><a class="anchor-link" href="#3.5.-Adding-New-Columns">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now, using our existing data, we want to add a few new columns to our <code>DataFrame</code> that will be useful in analysis.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="3.5.1.-Determining-Conferences">3.5.1. <a id="toc3_5_1_" /><a href="#toc0_">Determining Conferences</a><a class="anchor-link" href="#3.5.1.-Determining-Conferences">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>One important column the data is missing is <code>Conference</code>. It will be useful to know which conference a team is in, because that determines playoff matchups.</p>
+<p>The <code>EastRecord</code> and <code>WestRecord</code> columns are in the form <code>W-L</code> (where <code>W</code> is the number of wins and <code>L</code> is the number of losses), indicating a team's record against opponents in each conference. We can calculate the number of games a team played in each conference using the formula below:</p>
+$$
+\text{games} = \text{wins} + \text{losses}
+$$<p>Then, we can determine a team's <code>Conference</code> by checking if the team played more games in the <code>East</code> or the <code>West</code>.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_conference</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+    <span class="n">east_wins</span><span class="p">,</span> <span class="n">east_losses</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;EastRecord&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+    <span class="n">west_wins</span><span class="p">,</span> <span class="n">west_losses</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;WestRecord&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+    <span class="n">east_games</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">east_wins</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">east_losses</span><span class="p">)</span>
+    <span class="n">west_games</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">west_wins</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">west_losses</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;East&quot;</span> <span class="k">if</span> <span class="n">east_games</span> <span class="o">&gt;</span> <span class="n">west_games</span> <span class="k">else</span> <span class="s2">&quot;West&quot;</span>
+
+
+<span class="n">data</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Conference&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_conference</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="3.5.2.-Determining-Playoff-Seeding">3.5.2. <a id="toc3_5_2_" /><a href="#toc0_">Determining Playoff Seeding</a><a class="anchor-link" href="#3.5.2.-Determining-Playoff-Seeding">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Another important column the data is missing is <code>Seed</code>. This is likely to be important, because playoff seeding determines the matchups. As you can imagine the $1^\text{st}$ seed is typically expected to win more games than the $8^\text{th}$ seed, so this is an important column to include.</p>
+<p>We can determine the playoff seeding by doing the following:</p>
+<ul>
+<li>Group the data by <code>Season</code> and then <code>Conference</code>.</li>
+<li>Rank each team by its overall <code>Rank</code> within the group.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+    <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;Seed&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;Season&quot;</span><span class="p">,</span> <span class="s2">&quot;Conference&quot;</span><span class="p">])[</span><span class="s2">&quot;Rank&quot;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;dense&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int64&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="3.5.3.-Converting-Team-Records-to-Winning-Percentages">3.5.3. <a id="toc3_5_3_" /><a href="#toc0_">Converting Team Records to Winning Percentages</a><a class="anchor-link" href="#3.5.3.-Converting-Team-Records-to-Winning-Percentages">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Currently, we have $5$ columns that have team record in the form of <code>W-L</code> (where <code>W</code> is the number of wins and <code>L</code> is the number of losses): <code>OverallRecord</code>, <code>HomeRecord</code>, <code>RoadRecord</code>, <code>EastRecord</code>, and <code>WestRecord</code>.</p>
+<p>We want to standardize these columns by turning them into winning percentages using the formula below:</p>
+$$
+\text{winning percentage} = \frac{\text{wins}}{\text{wins} + \text{losses}}
+$$<p>This will give us $5$ new columns to replace the existing ones: <code>W%</code>, <code>HomeW%</code>, <code>RoadW%</code>, <code>EastW%</code>, and <code>WestW%</code>.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">record_to_win_pct</span><span class="p">(</span><span class="n">record</span><span class="p">):</span>
+    <span class="n">wins</span><span class="p">,</span> <span class="n">losses</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">wins</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">wins</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">losses</span><span class="p">))</span>
+
+
+<span class="k">for</span> <span class="p">(</span><span class="n">win_pct</span><span class="p">,</span> <span class="n">record</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;W%&quot;</span><span class="p">,</span> <span class="s2">&quot;OverallRecord&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;HomeW%&quot;</span><span class="p">,</span> <span class="s2">&quot;HomeRecord&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;RoadW%&quot;</span><span class="p">,</span> <span class="s2">&quot;RoadRecord&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;EastW%&quot;</span><span class="p">,</span> <span class="s2">&quot;EastRecord&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;WestW%&quot;</span><span class="p">,</span> <span class="s2">&quot;WestRecord&quot;</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">record</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">record</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">record_to_win_pct</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">record</span><span class="p">:</span> <span class="n">win_pct</span><span class="p">})</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now, we have no need for the <code>G</code> column, which indicates the number of games the team played in a given season (which is usually $82$ but differs under certain circumstances).</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="3.6.-Looking-at-Tidy-Data">3.6. <a id="toc3_6_" /><a href="#toc0_">Looking at Tidy Data</a><a class="anchor-link" href="#3.6.-Looking-at-Tidy-Data">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now, our data should be nice and tidy, making it suitable for analysis. Let's take a quick look before moving on.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Season</th>
+      <th>Team</th>
+      <th>Conference</th>
+      <th>Seed</th>
+      <th>G</th>
+      <th>FG</th>
+      <th>FGA</th>
+      <th>FG%</th>
+      <th>3P</th>
+      <th>3PA</th>
+      <th>3P%</th>
+      <th>2P</th>
+      <th>2PA</th>
+      <th>2P%</th>
+      <th>FT</th>
+      <th>FTA</th>
+      <th>FT%</th>
+      <th>ORB</th>
+      <th>DRB</th>
+      <th>TRB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TOV</th>
+      <th>PF</th>
+      <th>PTS</th>
+      <th>Age</th>
+      <th>W</th>
+      <th>L</th>
+      <th>PW</th>
+      <th>PL</th>
+      <th>MOV</th>
+      <th>SOS</th>
+      <th>SRS</th>
+      <th>ORtg</th>
+      <th>DRtg</th>
+      <th>NRtg</th>
+      <th>Pace</th>
+      <th>FTr</th>
+      <th>3PAr</th>
+      <th>TS%</th>
+      <th>eFG%</th>
+      <th>TOV%</th>
+      <th>ORB%</th>
+      <th>FT/FGA</th>
+      <th>OppeFG%</th>
+      <th>OppTOV%</th>
+      <th>DRB%</th>
+      <th>OppFT/FGA</th>
+      <th>Rank</th>
+      <th>W%</th>
+      <th>HomeW%</th>
+      <th>RoadW%</th>
+      <th>EastW%</th>
+      <th>WestW%</th>
+      <th>PlayoffRank</th>
+      <th>PlayoffW</th>
+      <th>PlayoffL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2003</td>
+      <td>Dallas Mavericks</td>
+      <td>West</td>
+      <td>1</td>
+      <td>82</td>
+      <td>38.5</td>
+      <td>85.1</td>
+      <td>0.453</td>
+      <td>7.8</td>
+      <td>20.3</td>
+      <td>0.381</td>
+      <td>30.8</td>
+      <td>64.8</td>
+      <td>0.475</td>
+      <td>18.1</td>
+      <td>21.9</td>
+      <td>0.829</td>
+      <td>11.1</td>
+      <td>31.0</td>
+      <td>42.1</td>
+      <td>22.4</td>
+      <td>8.1</td>
+      <td>5.5</td>
+      <td>11.6</td>
+      <td>21.1</td>
+      <td>103.0</td>
+      <td>28.1</td>
+      <td>60.0</td>
+      <td>22.0</td>
+      <td>62</td>
+      <td>20</td>
+      <td>7.78</td>
+      <td>0.12</td>
+      <td>7.90</td>
+      <td>110.7</td>
+      <td>102.3</td>
+      <td>8.4</td>
+      <td>92.5</td>
+      <td>0.257</td>
+      <td>0.239</td>
+      <td>0.543</td>
+      <td>0.498</td>
+      <td>10.9</td>
+      <td>25.4</td>
+      <td>0.213</td>
+      <td>0.473</td>
+      <td>14.8</td>
+      <td>70.9</td>
+      <td>0.221</td>
+      <td>1</td>
+      <td>0.731707</td>
+      <td>0.804878</td>
+      <td>0.658537</td>
+      <td>0.866667</td>
+      <td>0.653846</td>
+      <td>8</td>
+      <td>10</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2003</td>
+      <td>Sacramento Kings</td>
+      <td>West</td>
+      <td>3</td>
+      <td>82</td>
+      <td>39.5</td>
+      <td>85.2</td>
+      <td>0.464</td>
+      <td>6.0</td>
+      <td>15.7</td>
+      <td>0.381</td>
+      <td>33.5</td>
+      <td>69.5</td>
+      <td>0.482</td>
+      <td>16.7</td>
+      <td>22.3</td>
+      <td>0.746</td>
+      <td>11.0</td>
+      <td>33.5</td>
+      <td>44.5</td>
+      <td>24.8</td>
+      <td>9.0</td>
+      <td>5.6</td>
+      <td>14.5</td>
+      <td>20.3</td>
+      <td>101.7</td>
+      <td>28.3</td>
+      <td>59.0</td>
+      <td>23.0</td>
+      <td>59</td>
+      <td>23</td>
+      <td>6.50</td>
+      <td>0.18</td>
+      <td>6.68</td>
+      <td>105.9</td>
+      <td>99.1</td>
+      <td>6.8</td>
+      <td>95.4</td>
+      <td>0.262</td>
+      <td>0.184</td>
+      <td>0.535</td>
+      <td>0.499</td>
+      <td>13.3</td>
+      <td>25.6</td>
+      <td>0.196</td>
+      <td>0.446</td>
+      <td>13.6</td>
+      <td>70.6</td>
+      <td>0.204</td>
+      <td>3</td>
+      <td>0.719512</td>
+      <td>0.853659</td>
+      <td>0.585366</td>
+      <td>0.766667</td>
+      <td>0.692308</td>
+      <td>3</td>
+      <td>7</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2003</td>
+      <td>Los Angeles Lakers</td>
+      <td>West</td>
+      <td>5</td>
+      <td>82</td>
+      <td>37.7</td>
+      <td>83.6</td>
+      <td>0.451</td>
+      <td>5.9</td>
+      <td>16.7</td>
+      <td>0.356</td>
+      <td>31.8</td>
+      <td>66.9</td>
+      <td>0.475</td>
+      <td>19.0</td>
+      <td>26.0</td>
+      <td>0.734</td>
+      <td>13.1</td>
+      <td>31.1</td>
+      <td>44.3</td>
+      <td>23.3</td>
+      <td>7.8</td>
+      <td>5.7</td>
+      <td>14.5</td>
+      <td>22.9</td>
+      <td>100.4</td>
+      <td>28.1</td>
+      <td>50.0</td>
+      <td>32.0</td>
+      <td>48</td>
+      <td>34</td>
+      <td>2.33</td>
+      <td>0.38</td>
+      <td>2.71</td>
+      <td>107.2</td>
+      <td>104.7</td>
+      <td>2.5</td>
+      <td>92.5</td>
+      <td>0.311</td>
+      <td>0.199</td>
+      <td>0.528</td>
+      <td>0.486</td>
+      <td>13.3</td>
+      <td>30.2</td>
+      <td>0.228</td>
+      <td>0.477</td>
+      <td>13.4</td>
+      <td>72.7</td>
+      <td>0.241</td>
+      <td>6</td>
+      <td>0.609756</td>
+      <td>0.756098</td>
+      <td>0.463415</td>
+      <td>0.566667</td>
+      <td>0.634615</td>
+      <td>7</td>
+      <td>6</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2003</td>
+      <td>Milwaukee Bucks</td>
+      <td>East</td>
+      <td>7</td>
+      <td>82</td>
+      <td>37.1</td>
+      <td>81.3</td>
+      <td>0.457</td>
+      <td>7.1</td>
+      <td>18.6</td>
+      <td>0.383</td>
+      <td>30.0</td>
+      <td>62.7</td>
+      <td>0.478</td>
+      <td>18.1</td>
+      <td>23.3</td>
+      <td>0.776</td>
+      <td>10.7</td>
+      <td>28.9</td>
+      <td>39.5</td>
+      <td>22.2</td>
+      <td>7.6</td>
+      <td>4.2</td>
+      <td>12.7</td>
+      <td>22.2</td>
+      <td>99.5</td>
+      <td>29.3</td>
+      <td>42.0</td>
+      <td>40.0</td>
+      <td>42</td>
+      <td>40</td>
+      <td>0.23</td>
+      <td>-0.48</td>
+      <td>-0.24</td>
+      <td>108.8</td>
+      <td>108.6</td>
+      <td>0.2</td>
+      <td>90.4</td>
+      <td>0.287</td>
+      <td>0.229</td>
+      <td>0.543</td>
+      <td>0.500</td>
+      <td>12.2</td>
+      <td>25.6</td>
+      <td>0.222</td>
+      <td>0.494</td>
+      <td>13.5</td>
+      <td>69.9</td>
+      <td>0.237</td>
+      <td>16</td>
+      <td>0.512195</td>
+      <td>0.609756</td>
+      <td>0.414634</td>
+      <td>0.592593</td>
+      <td>0.357143</td>
+      <td>11</td>
+      <td>2</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2003</td>
+      <td>Orlando Magic</td>
+      <td>East</td>
+      <td>8</td>
+      <td>82</td>
+      <td>35.9</td>
+      <td>82.5</td>
+      <td>0.436</td>
+      <td>6.9</td>
+      <td>19.4</td>
+      <td>0.357</td>
+      <td>29.0</td>
+      <td>63.1</td>
+      <td>0.460</td>
+      <td>19.7</td>
+      <td>25.4</td>
+      <td>0.777</td>
+      <td>11.7</td>
+      <td>29.2</td>
+      <td>40.9</td>
+      <td>20.4</td>
+      <td>8.5</td>
+      <td>3.7</td>
+      <td>14.4</td>
+      <td>23.0</td>
+      <td>98.5</td>
+      <td>26.9</td>
+      <td>42.0</td>
+      <td>40.0</td>
+      <td>41</td>
+      <td>41</td>
+      <td>0.13</td>
+      <td>-0.53</td>
+      <td>-0.39</td>
+      <td>105.2</td>
+      <td>105.0</td>
+      <td>0.2</td>
+      <td>93.1</td>
+      <td>0.307</td>
+      <td>0.235</td>
+      <td>0.526</td>
+      <td>0.478</td>
+      <td>13.3</td>
+      <td>27.0</td>
+      <td>0.239</td>
+      <td>0.486</td>
+      <td>15.1</td>
+      <td>71.1</td>
+      <td>0.250</td>
+      <td>17</td>
+      <td>0.512195</td>
+      <td>0.634146</td>
+      <td>0.390244</td>
+      <td>0.574074</td>
+      <td>0.392857</td>
+      <td>15</td>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>331</th>
+      <td>2023</td>
+      <td>Phoenix Suns</td>
+      <td>West</td>
+      <td>4</td>
+      <td>82</td>
+      <td>42.1</td>
+      <td>90.1</td>
+      <td>0.467</td>
+      <td>12.2</td>
+      <td>32.6</td>
+      <td>0.374</td>
+      <td>29.9</td>
+      <td>57.5</td>
+      <td>0.520</td>
+      <td>17.2</td>
+      <td>21.7</td>
+      <td>0.793</td>
+      <td>11.8</td>
+      <td>32.4</td>
+      <td>44.2</td>
+      <td>27.3</td>
+      <td>7.1</td>
+      <td>5.3</td>
+      <td>13.5</td>
+      <td>21.2</td>
+      <td>113.6</td>
+      <td>28.1</td>
+      <td>45.0</td>
+      <td>37.0</td>
+      <td>46</td>
+      <td>36</td>
+      <td>2.07</td>
+      <td>0.01</td>
+      <td>2.08</td>
+      <td>115.1</td>
+      <td>113.0</td>
+      <td>2.1</td>
+      <td>98.2</td>
+      <td>0.241</td>
+      <td>0.362</td>
+      <td>0.570</td>
+      <td>0.535</td>
+      <td>12.0</td>
+      <td>26.6</td>
+      <td>0.191</td>
+      <td>0.532</td>
+      <td>12.9</td>
+      <td>76.0</td>
+      <td>0.234</td>
+      <td>10</td>
+      <td>0.548780</td>
+      <td>0.682927</td>
+      <td>0.414634</td>
+      <td>0.500000</td>
+      <td>0.576923</td>
+      <td>3</td>
+      <td>4</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>332</th>
+      <td>2023</td>
+      <td>Los Angeles Clippers</td>
+      <td>West</td>
+      <td>6</td>
+      <td>82</td>
+      <td>41.1</td>
+      <td>86.1</td>
+      <td>0.477</td>
+      <td>12.7</td>
+      <td>33.4</td>
+      <td>0.381</td>
+      <td>28.4</td>
+      <td>52.7</td>
+      <td>0.539</td>
+      <td>18.7</td>
+      <td>23.9</td>
+      <td>0.781</td>
+      <td>9.8</td>
+      <td>33.4</td>
+      <td>43.2</td>
+      <td>23.9</td>
+      <td>7.1</td>
+      <td>4.4</td>
+      <td>14.2</td>
+      <td>19.5</td>
+      <td>113.6</td>
+      <td>29.7</td>
+      <td>44.0</td>
+      <td>38.0</td>
+      <td>42</td>
+      <td>40</td>
+      <td>0.50</td>
+      <td>-0.19</td>
+      <td>0.31</td>
+      <td>115.0</td>
+      <td>114.5</td>
+      <td>0.5</td>
+      <td>98.0</td>
+      <td>0.278</td>
+      <td>0.387</td>
+      <td>0.588</td>
+      <td>0.551</td>
+      <td>12.8</td>
+      <td>22.9</td>
+      <td>0.217</td>
+      <td>0.543</td>
+      <td>11.7</td>
+      <td>76.6</td>
+      <td>0.195</td>
+      <td>12</td>
+      <td>0.536585</td>
+      <td>0.560976</td>
+      <td>0.512195</td>
+      <td>0.566667</td>
+      <td>0.519231</td>
+      <td>14</td>
+      <td>1</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>333</th>
+      <td>2023</td>
+      <td>Brooklyn Nets</td>
+      <td>East</td>
+      <td>6</td>
+      <td>82</td>
+      <td>41.5</td>
+      <td>85.1</td>
+      <td>0.487</td>
+      <td>12.8</td>
+      <td>33.8</td>
+      <td>0.378</td>
+      <td>28.7</td>
+      <td>51.3</td>
+      <td>0.559</td>
+      <td>17.7</td>
+      <td>22.1</td>
+      <td>0.800</td>
+      <td>8.2</td>
+      <td>32.3</td>
+      <td>40.5</td>
+      <td>25.5</td>
+      <td>7.1</td>
+      <td>6.2</td>
+      <td>13.7</td>
+      <td>21.1</td>
+      <td>113.4</td>
+      <td>28.0</td>
+      <td>45.0</td>
+      <td>37.0</td>
+      <td>43</td>
+      <td>39</td>
+      <td>0.85</td>
+      <td>0.18</td>
+      <td>1.03</td>
+      <td>115.0</td>
+      <td>114.1</td>
+      <td>0.9</td>
+      <td>98.3</td>
+      <td>0.260</td>
+      <td>0.397</td>
+      <td>0.598</td>
+      <td>0.562</td>
+      <td>12.7</td>
+      <td>19.6</td>
+      <td>0.208</td>
+      <td>0.530</td>
+      <td>12.2</td>
+      <td>73.7</td>
+      <td>0.212</td>
+      <td>9</td>
+      <td>0.548780</td>
+      <td>0.560976</td>
+      <td>0.536585</td>
+      <td>0.576923</td>
+      <td>0.500000</td>
+      <td>16</td>
+      <td>0</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>334</th>
+      <td>2023</td>
+      <td>Cleveland Cavaliers</td>
+      <td>East</td>
+      <td>4</td>
+      <td>82</td>
+      <td>41.6</td>
+      <td>85.2</td>
+      <td>0.488</td>
+      <td>11.6</td>
+      <td>31.6</td>
+      <td>0.367</td>
+      <td>30.0</td>
+      <td>53.6</td>
+      <td>0.559</td>
+      <td>17.5</td>
+      <td>22.5</td>
+      <td>0.780</td>
+      <td>9.7</td>
+      <td>31.4</td>
+      <td>41.1</td>
+      <td>24.9</td>
+      <td>7.1</td>
+      <td>4.7</td>
+      <td>13.3</td>
+      <td>19.0</td>
+      <td>112.3</td>
+      <td>25.4</td>
+      <td>51.0</td>
+      <td>31.0</td>
+      <td>55</td>
+      <td>27</td>
+      <td>5.38</td>
+      <td>-0.15</td>
+      <td>5.23</td>
+      <td>116.1</td>
+      <td>110.6</td>
+      <td>5.5</td>
+      <td>95.7</td>
+      <td>0.264</td>
+      <td>0.371</td>
+      <td>0.590</td>
+      <td>0.556</td>
+      <td>12.3</td>
+      <td>23.6</td>
+      <td>0.206</td>
+      <td>0.535</td>
+      <td>14.4</td>
+      <td>76.3</td>
+      <td>0.210</td>
+      <td>5</td>
+      <td>0.621951</td>
+      <td>0.756098</td>
+      <td>0.487805</td>
+      <td>0.653846</td>
+      <td>0.566667</td>
+      <td>10</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>335</th>
+      <td>2023</td>
+      <td>Miami Heat</td>
+      <td>East</td>
+      <td>7</td>
+      <td>82</td>
+      <td>39.2</td>
+      <td>85.3</td>
+      <td>0.460</td>
+      <td>12.0</td>
+      <td>34.8</td>
+      <td>0.344</td>
+      <td>27.3</td>
+      <td>50.5</td>
+      <td>0.540</td>
+      <td>19.1</td>
+      <td>23.0</td>
+      <td>0.831</td>
+      <td>9.7</td>
+      <td>30.9</td>
+      <td>40.6</td>
+      <td>23.8</td>
+      <td>8.0</td>
+      <td>3.0</td>
+      <td>13.5</td>
+      <td>18.5</td>
+      <td>109.5</td>
+      <td>27.7</td>
+      <td>44.0</td>
+      <td>38.0</td>
+      <td>40</td>
+      <td>42</td>
+      <td>-0.32</td>
+      <td>0.18</td>
+      <td>-0.13</td>
+      <td>113.0</td>
+      <td>113.3</td>
+      <td>-0.3</td>
+      <td>96.3</td>
+      <td>0.270</td>
+      <td>0.408</td>
+      <td>0.574</td>
+      <td>0.530</td>
+      <td>12.4</td>
+      <td>22.8</td>
+      <td>0.224</td>
+      <td>0.561</td>
+      <td>14.5</td>
+      <td>77.7</td>
+      <td>0.198</td>
+      <td>13</td>
+      <td>0.536585</td>
+      <td>0.658537</td>
+      <td>0.414634</td>
+      <td>0.461538</td>
+      <td>0.666667</td>
+      <td>4</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>336 rows × 58 columns</p>
 </div>
 </div>
 
