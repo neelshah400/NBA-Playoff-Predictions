@@ -14712,7 +14712,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>We'll start by importing the <a href="https://www.python.org/"><code>Python</code></a> libraries necessary for this project and configuring some things.</p>
+<p>We'll start by importing the <a href="https://www.python.org/">Python</a> libraries necessary for this project and configuring some things.</p>
 
 </div>
 </div>
@@ -14851,18 +14851,18 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>To scrape the data from each page, we will do the following:</p>
 <ul>
-<li>Perform an <code>HTTP</code> <code>GET</code> request to the appropriate URL using the <a href="https://requests.readthedocs.io/en/latest/"><code>Requests</code></a> library.</li>
-<li>Parse the webpage using <a href="https://beautiful-soup-4.readthedocs.io/en/latest/"><code>Beautiful Soup</code></a>.</li>
+<li>Perform an <code>HTTP</code> <code>GET</code> request to the appropriate URL using the <a href="https://requests.readthedocs.io/en/latest/">Requests</a> library.</li>
+<li>Parse the webpage using <a href="https://beautiful-soup-4.readthedocs.io/en/latest/">Beautiful Soup</a>.</li>
 <li>Find the <code>HTML</code> <code>table</code> with the appropriate <code>id</code>.</li>
-<li>Read the parsed <code>HTML</code> <code>table</code> into a <code>DataFrame</code> using <a href="https://pandas.pydata.org/"><code>pandas</code></a>.</li>
-<li>Ensure that the appropriate <code>path</code> exists in the filesystem using <a href="https://docs.python.org/3/library/pathlib.html"><code>pathlib</code></a>.</li>
-<li>Write the <code>DataFrame</code> to a <code>CSV</code> file at the appropriate <code>path</code> using <a href="https://pandas.pydata.org/"><code>pandas</code></a>.</li>
+<li>Read the parsed <code>HTML</code> <code>table</code> into a <code>DataFrame</code> using <a href="https://pandas.pydata.org/">pandas</a>.</li>
+<li>Ensure that the appropriate <code>path</code> exists in the filesystem using <a href="https://docs.python.org/3/library/pathlib.html">pathlib</a>.</li>
+<li>Write the <code>DataFrame</code> to a <code>CSV</code> file at the appropriate <code>path</code> using <a href="https://pandas.pydata.org/">pandas</a>.</li>
 </ul>
 <p>In our approach, there are a few issues that we have to address as well:</p>
 <ul>
 <li>To save time, if the <code>CSV</code> files for a page already exist, we will not re-scrape the page.</li>
 <li>It appears that some of the <code>table</code> elements are hidden inside of <code>HTML</code> comments, so we have to look there if a <code>table</code> can't be found normally.</li>
-<li>To avoid hitting rate limits (from making too many requests in a given time period), we have to add a $10$ second <code>sleep</code> between each <code>HTTP</code> <code>GET</code> request using the <a href="https://docs.python.org/3/library/time.html"><code>time</code></a> library.</li>
+<li>To avoid hitting rate limits (from making too many requests in a given time period), we have to add a $10$ second <code>sleep</code> between each <code>HTTP</code> <code>GET</code> request using the <a href="https://docs.python.org/3/library/time.html">time</a> library.</li>
 </ul>
 
 </div>
